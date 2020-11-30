@@ -2,7 +2,7 @@
 #include "Instrucciones.h"
 
 
-int DosJugadores(char VecNombre_1[], char VecNombre_2[], int Tam, int CantBuncos_1, int CantBuncos_2){
+int DosJugadores(char VecNombre_1[], int Tam, int PuntosMax2[], int Tam2, int CBuncos[], int Test[]){
 
     /// Declaro vector dados, vectores nombres, Op (Opciones del switch), ronda y turno inicial en 1.
 
@@ -36,54 +36,52 @@ int DosJugadores(char VecNombre_1[], char VecNombre_2[], int Tam, int CantBuncos
 
     bool Flag=false;
 
-    cout<<endl;
-    cout<<" INGRESAR NOMBRE DEL JUGADOR 1:  ";
-    CargarNombre(Nombre_1);
-    cout<<endl<<endl;
-    cout<<" INGRESAR NOMBRE DEL JUGADOR 2:  ";
-    CargarNombre(Nombre_2);
+    Rectangulo(5,4,50,4);
+    Rectangulo(5,4,50,8);
+    Say(10,5,"Nombre del Jugador 1: "); CargarNombre(Nombre_1);
+    Say(10,9,"Nombre del Jugador 2: "); CargarNombre(Nombre_2);
 
     do{
         /// Jugador inicial.
 
         cls();
-        cout<<'\t'<<" ** PARTIDA MODO MULTIJUGADOR **"<<endl<<endl<<endl;
-        cout<<'\t'<<" || RONDA ACTUAL: "<<Ronda<<" ||"<<endl;
-        cout<<endl<<endl;
-        cout<<" TURNO ACTUAL DE ";
+        Rectangulo(5,4,50,21);
+        Say(17,5,"Partida: MULTIJUGADOR.");
+        Rectangulo(5,8,50,4);
+        Say(10,9,"Ronda: "); cout<<Ronda;
+        Say(25,9,"Turno: ");
+
         if(Turno==1) MostrarNombre(Nombre_1);
         else MostrarNombre(Nombre_2);
-        cout<<endl<<endl;
 
         /// Menu de juego.
 
         Ant=Turno;
-        if(X==false) cout<<" 1. REALIZAR TIRADA."<<endl;
-        if(X==true)  cout<<" 2. MOSTRAR DADOS."<<endl;
-        if(X==true)  cout<<" 3. ANALICE SU TIRADA PARA PODER CONTINUAR."<<endl;
-        cout<<" 4. INSTRUCCIONES."<<endl;
-        cout<<" 0. VOLVER AL MENU PRINCIPAL.";
-        cout<<endl<<endl<<endl<<endl;
+        Say(10,14,"1. Realizar Tirada.");
+        Say(10,16,"2. Analizar Tirada.");
+        Say(10,18,"3. Instrucciones.");
+        Say(10,22,"0. Volver al MENU PRINCIPAL.");
 
-        cout<<"** INGRESAR OPCION PARA CONTINUAR: ";
-        cin>>Op;
+        Rectangulo(5,25,50,4);
+        Say(17,26,"Seleccionar: "); cin>>Op;
         cls();
 
         switch(Op){
             case 1:
-            if(X==false){CargarAleatorio(Dados, T, 5); X=true;}
-            else cout<<"* OPCION INCORRECTA, SELECCIONE UNA OPCION VALIDA: "<<endl<<endl;
+            if(X==false){
+                Rectangulo(14,4,30,4); Say(19,5,"Lanzando dados! ");
+                msleep(3000);
+                DadoRandom();
+                CargarAleatorio(Dados, T,5);
+                X=true;
+            }
+            else{Rectangulo(14,4,50,4); Say(19,5,"Debe analizar su tirada para continuar.");}
             break;
 
             case 2:
-            if(X==true) MostrarVector(Dados, T);
-            else cout<<"* OPCION INCORRECTA, SELECCIONE UNA OPCION VALIDA: "<<endl<<endl;
-            break;
-
-            case 3:
-
             if(X==true){
                 if(Y==true) Z==true;
+
                 X=false;
                 Y=true;
 
@@ -94,7 +92,6 @@ int DosJugadores(char VecNombre_1[], char VecNombre_2[], int Tam, int CantBuncos
                     PuntosTotales_1 = PuntosTotales_1 + PuntosTirada_1;
                     PuntosRonda_1 = PuntosRonda_1 + PuntosTirada_1;
                     if(PuntosTirada_1==21) Buncos_1++;
-
                 }
                 else{
                     PuntosTirada_2 = AnalizarTirada(Dados, T, Ronda);
@@ -126,24 +123,29 @@ int DosJugadores(char VecNombre_1[], char VecNombre_2[], int Tam, int CantBuncos
                 /// Muestra pantalla con estadisticas del juego entre turnos.
 
                 if(Ant!=Turno){
+                    Rectangulo(25,26,50,4);
+                    gotoxy(30,28);
                     system("pause");
                     cls();
                     AnalisisDosJugadores(Turno, Ronda, Nombre_1, PuntosTotales_1, Buncos_1, Nombre_2, PuntosTotales_2, Buncos_2);
                 }
             }
-            else cout<<"* OPCION INCORRECTA, SELECCIONE UNA OPCION VALIDA: "<<endl<<endl;
+            else{Rectangulo(14,4,50,4); Say(19,5,"Debe realizar una tirada para continuar.");}
             break;
 
-            case 4: Instrucciones(); /// Reglamento del juego.
+            case 3: Instrucciones(); /// Reglamento del juego.
             break;
 
-            case 0:
-            return 0;
+            case 0: Rectangulo(14,4,39,4); Say(19,5,"Volviendo al MENU PRINCIPAL.");
+                gotoxy(10,9);
+                return 0;
             break;
 
-            default: cout<<"* OPCION INCORRECTA, SELECCIONE UNA OPCION VALIDA: "<<endl;
+            default: Rectangulo(14,4,22,4); Say(19,5,"INCORRECTO.");;
             break;
         }
+        Rectangulo(25,26,50,4);
+        gotoxy(30,28);
         system("pause");
     }
     while(Ronda<=6);
@@ -151,94 +153,136 @@ int DosJugadores(char VecNombre_1[], char VecNombre_2[], int Tam, int CantBuncos
 
     /// Fin de la partida y carga de los vectores y variables con los parametros necesarios para la seccion de Puntajes.
 
-    cout<<endl<<endl;
-    cout<<'\t'<<"** PARTIDA FINALIZADA ** "<<endl;
-    cout<<endl<<endl<<endl;
+    Rectangulo(5,2,61,22);
+    Rectangulo(5,2,61,4);
+    Rectangulo(5,12,61,6);
 
-    /// Ganador jugador 1.
+    Say(15,3,"Cantidad de Rondas totales finalizadas.");
+
+    /// Ganador jugador 1 por puntos totales.
 
     if(PuntosTotales_1>PuntosTotales_2){
-        cout<<'\t'<<">>=========>> JUGADOR GANADOR: >> ";
-        MostrarNombre(Nombre_1);
+        Say(25,7,"GANADOR: "); MostrarNombre(Nombre_1);
 
+        if(PuntosMax2[Tam2]==0){
 
-        CopiarVectorNombre(Nombre_1, VecNombre_1, Tam);
-        CantBuncos_1=Buncos_1;
-        MostrarNombre(Nombre_2);
+            CopiarVectorNombre(Nombre_1, VecNombre_1, Tam);
+            CBuncos[Tam2]=Buncos_1;
+            Test[0]=0;
+            PuntosMax2[Tam2]=PuntosTotales_1;
+        }
+        else if(PuntosTotales_1>PuntosMax2[Tam2]){
 
-        CopiarVectorNombre(Nombre_2, VecNombre_2, Tam);
-        CantBuncos_2=Buncos_2;
+            CopiarVectorNombre(Nombre_1, VecNombre_1, Tam);
+            CBuncos[Tam2]=Buncos_1;
+            Test[0]=0;
+            PuntosMax2[Tam2]=PuntosTotales_1;
+        }
     }
+
+    /// Ganador jugador 1 mismos puntos pero mayor cant de Buncos.
+
     else if(PuntosTotales_1==PuntosTotales_2 && Buncos_1>Buncos_2){
-        cout<<'\t'<<">>=========>> JUGADOR GANADOR: >> ";
-        MostrarNombre(Nombre_1);
+        Say(25,7,"GANADOR: "); MostrarNombre(Nombre_1);
 
+        if(PuntosMax2[Tam2]==0){
 
-        CopiarVectorNombre(Nombre_1, VecNombre_1, Tam);
-        CantBuncos_1=Buncos_1;
-        MostrarNombre(Nombre_2);
+            CopiarVectorNombre(Nombre_1, VecNombre_1, Tam);
+            CBuncos[Tam2]=Buncos_1;
+            Test[0]=0;
+            PuntosMax2[Tam2]=PuntosTotales_1;
+        }
+        else if(PuntosTotales_1>PuntosMax2[Tam2]){
 
-        CopiarVectorNombre(Nombre_2, VecNombre_2, Tam);
-        CantBuncos_2=Buncos_2;
+            CopiarVectorNombre(Nombre_1, VecNombre_1, Tam);
+            CBuncos[Tam2]=Buncos_1;
+            Test[0]=0;
+            PuntosMax2[Tam2]=PuntosTotales_1;
+        }
     }
 
-    /// Ganador jugador 2.
+    /// Ganador jugador 2 por puntos totales.
 
     else if(PuntosTotales_1<PuntosTotales_2){
-        cout<<'\t'<<">>=========>> JUGADOR GANADOR: >> ";
-        MostrarNombre(Nombre_2);
+        Say(25,7,"GANADOR: "); MostrarNombre(Nombre_2);
 
+        if(PuntosMax2[Tam2]==0){
 
-        CopiarVectorNombre(Nombre_1, VecNombre_1, Tam);
-        CantBuncos_1=Buncos_1;
-        MostrarNombre(Nombre_2);
+            CopiarVectorNombre(Nombre_2, VecNombre_1, Tam);
+            CBuncos[Tam2]=Buncos_2;
+            Test[0]=0;
+            PuntosMax2[Tam2]=PuntosTotales_2;
+        }
+        else if(PuntosTotales_2>PuntosMax2[Tam2]){
 
-        CopiarVectorNombre(Nombre_2, VecNombre_2, Tam);
-        CantBuncos_2=Buncos_2;
+            CopiarVectorNombre(Nombre_2, VecNombre_1, Tam);
+            CBuncos[Tam2]=Buncos_2;
+            Test[0]=0;
+            PuntosMax2[Tam2]=PuntosTotales_2;
+        }
     }
+
+    /// Ganador jugador 2 mismos puntos pero mayor cant de Buncos.
+
     else if(PuntosTotales_1==PuntosTotales_2 && Buncos_1<Buncos_2){
-        cout<<'\t'<<">>=========>> JUGADOR GANADOR: >> ";
-        MostrarNombre(Nombre_2);
+        Say(25,7,"GANADOR: "); MostrarNombre(Nombre_2);
 
+        if(PuntosMax2[Tam2]==0){
 
-        CopiarVectorNombre(Nombre_1, VecNombre_1, Tam);
-        CantBuncos_1=Buncos_1;
-        MostrarNombre(Nombre_2);
+            CopiarVectorNombre(Nombre_2, VecNombre_1, Tam);
+            CBuncos[Tam2]=Buncos_2;
+            Test[0]=0;
+            PuntosMax2[Tam2]=PuntosTotales_2;
+        }
+        else if(PuntosTotales_2>PuntosMax2[Tam2]){
 
-        CopiarVectorNombre(Nombre_2, VecNombre_2, Tam);
-        CantBuncos_2=Buncos_2;
+            CopiarVectorNombre(Nombre_2, VecNombre_1, Tam);
+            CBuncos[Tam2]=Buncos_2;
+            Test[0]=0;
+            PuntosMax2[Tam2]=PuntosTotales_2;
+        }
     }
 
     /// Empate.
 
     else{
-        cout<<'\t'<<">>=========>> EMPATE !! >> ";
+        Say(28,7,"EMPATE! ");
 
-        CopiarVectorNombre(Nombre_1, VecNombre_1, Tam);
-        CantBuncos_1=Buncos_1;
+        if(PuntosMax2[Tam2]==0){
 
-        CopiarVectorNombre(Nombre_2, VecNombre_2, Tam);
-        CantBuncos_2=Buncos_2;
+            CopiarVectorNombre(Nombre_1, VecNombre_1, Tam);;
+
+            CBuncos[Tam2]=Buncos_1;
+            Test[0]=1;
+            PuntosMax2[Tam2]=PuntosTotales_1;
+        }
+        else if(PuntosTotales_1>PuntosMax2[Tam2]){
+
+            CopiarVectorNombre(Nombre_1, VecNombre_1, Tam);
+
+            CBuncos[Tam2]=Buncos_1;
+            Test[0]=1;
+            PuntosMax2[Tam2]=PuntosTotales_1;
+        }
+
     }
+
 
     /// Estadisticas de la partida.
 
-    cout<<endl<<endl;
-    cout<<'\t'<<"  | | || ESTADISTICAS DE LA PARTIDA || | |  "<<endl;
-    cout<<endl<<endl;
-    cout<<" ==> JUGADOR: 1 ";
-    MostrarNombre(Nombre_1);
-    cout<<endl<<endl;
-    cout<<" CANTIDAD DE BUNCOS OBTENIDOS: "<<Buncos_1<<endl<<endl;
-    cout<<" PUNTAJE TOTAL OBTENIDO: "<<PuntosTotales_1<<endl;
-    cout<<endl<<endl;
-    cout<<" ==> JUGADOR: 2 ";
-    MostrarNombre(Nombre_2);
-    cout<<endl;
-    cout<<" CANTIDAD DE BUNCOS OBTENIDOS: "<<Buncos_2<<endl<<endl;
-    cout<<" PUNTAJE TOTAL OBTENIDO: "<<PuntosTotales_2<<endl;
-    cout<<endl<<endl;
+    Say(22,9,"--- Estadisticas ---");
 
-    if(PuntosTotales_1>PuntosTotales_2) return PuntosTotales_1;
-    else return PuntosTotales_2;
+    Say(10,13,"Jugador: "); MostrarNombre(Nombre_1);
+    Say(10,14,"Buncos: "); cout<<Buncos_1;
+    Say(10,15,"Puntaje total: "); cout<<PuntosTotales_1;
+
+    Say(10,19,"Jugador: "); MostrarNombre(Nombre_2);
+    Say(10,20,"Buncos: "); cout<<Buncos_2;
+    Say(10,21,"Puntaje total: "); cout<<PuntosTotales_2;
+
+    if(PuntosMax2[Tam2]==PuntosTotales_1 || PuntosMax2[Tam2]==PuntosTotales_2){
+        if(PuntosTotales_1>=PuntosTotales_2) return PuntosTotales_1;
+        else return PuntosTotales_2;
+    }
+    else return 0;
 }

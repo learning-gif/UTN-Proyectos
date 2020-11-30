@@ -19,7 +19,7 @@ void OrdenarVector(int V[], int Tam); /// Ordena de menor a mayor un vector.
 
 int SumarVector(int V[], int Tam); /// Suma los valores contenidos en el vector.
 
-void CopiarVectorNombre(char V[], char V2[], int Tam); /// Copia el vector v en v2 para los nombres.
+void CopiarVectorNombre(char V[], char V2[], int Tam); /// Copia el vector V en V2 para los nombres.
 
 
 /// Desarrollo de funciones generales.
@@ -78,16 +78,16 @@ int SumarVector(int V[], int Tam ){
     return Suma;
 }
 
-void CopiarVectorNombre(char V[], char V2[], int Tam ){
+void CopiarVectorNombre(char V[], char V2[], int Tam){
     for(int I=0;I<Tam;I++){
         V2[I]=V[I];
     }
 }
 
 void CargarVector(int V[], int Tam){
+    Rectangulo(5,4,28,6);
     for(int I=0;I<Tam;I++){
-        cout<<"INGRESE NUMERO: ";
-        cin>>V[I];
+        Say(10,I+5,"Ingresar Dado: "); cin>>V[I];
     }
 }
 
@@ -99,6 +99,5 @@ void MostrarNombre(char V[]){
     cout<<V<<'\t';
     cout<<endl;
 }
-
 
 #endif // FUNCIONES_GENERALES_H_INCLUDED

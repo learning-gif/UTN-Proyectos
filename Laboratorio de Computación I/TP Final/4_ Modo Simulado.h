@@ -3,12 +3,15 @@
 
 int ModoSimulado(){
 
+    /// Declaro vector dados, vector nombre, Op (Opciones del switch) y Ronda inicial en 1.
+
     int const T=3;
-    int const Tam=15;
     int Op;
     int Ronda=1;
     int Dados[T];
-    char Nombre[Tam];
+    char Nombre[15];
+
+    /// Contadores y Acumuladores para las tiradas y puntos.
 
     int PuntosTirada=0;
     int PuntosTotales=0;
@@ -17,90 +20,110 @@ int ModoSimulado(){
     int PuntosRonda=0;
     int CantTiradas=0;
 
+    /// Banderas para mostrar o no partes del menu.
+
     bool X=false;
     bool Y=false;
 
-    cout<<" INGRESE SU NOMBRE: ";
-    CargarNombre(Nombre);
+    /// Desarrollo.
+
+    Rectangulo(5,4,50,4); Say(10,5,"Ingrese su Nombre: "); CargarNombre(Nombre);
 
     do{
         cls();
-        cout<<'\t'<<" ** PARTIDA EN MODO SOLITARIO **"<<endl;
-        cout<<endl<<endl<<endl;
-        cout<<'\t'<<" || RONDA ACTUAL: "<<Ronda<<" ||"<<endl;
-        cout<<endl<<endl<<endl;
+        Rectangulo(5,4,60,22);
+        Say(25,5,"Partida: SIMULADA.");
+        Say(26,7,"Ronda Actual: "); cout<<Ronda;
+        Rectangulo(5,10,60,12);
 
-        if(X==false) cout<<" 1. REALIZAR TIRADA."<<endl;
-        if(X==true)  cout<<" 2. MOSTRAR DADOS."<<endl;
-        if(X==true)  cout<<" 3. ANALICE SU TIRADA PARA PODER CONTINUAR."<<endl;
-        cout<<" 4. INSTRUCCIONES."<<endl;
-        cout<<" 0. VOLVER AL MENU PRINCIPAL.";
+        /// Menu de juego.
 
-        cout<<endl<<endl<<endl<<endl;
-        if(Y==true) cout<<" =>> PUNTOS TOTALES DE LA RONDA ACTUAL: "<<PuntosRonda<<endl<<endl;
-        if(Y==true) cout<<" =>> CANTIDAD DE BUNCOS OBTENIDOS: "<<Buncos<<endl<<endl;
-        if(Y==true) cout<<" =>> PUNTOS TOTALES ACUMULADOS: "<<PuntosTotales<<endl<<endl;
+        Say(17,12,"1. Realizar Tirada.");
+        Say(17,14,"2. Analizar Tirada.");
+        Say(17,16,"3. Intrucciones.");
+        Say(17,18,"0. Volver al MENU PRINCIPAL.");
 
-        cout<<endl;
-        cout<<"** INGRESAR OPCION PARA CONTINUAR: ";
-        cin>>Op;
+        if(Y==true){
+            Rectangulo(71,5,38,8);
+            Say(75,6,"Buncos: "); cout<<Buncos;
+            Say(75,8,"Puntos de la Ronda Actual: "); cout<<PuntosRonda;
+            Say(75,10,"Puntos Totales: "); cout<<PuntosTotales;
+        }
+
+        Say(11,23,"Seleccionar: "); cin>>Op;
         cls();
 
         switch(Op){
-            case 1: /// Carga manual del vector dados.
+            case 1: /// Genera numeros aleatorios para los dados.
             if(X==false){CargarVector(Dados, T); X=true; CantTiradas++;}
-            else cout<<"* OPCION INCORRECTA, SELECCIONE UNA OPCION VALIDA: "<<endl<<endl;
+            else{
+                Rectangulo(14,4,50,4); Say(19,5,"Debe analizar su tirada para continuar.");
+            }
             break;
 
-            case 2:
-            if(X==true) MostrarVector(Dados, T);
-            else cout<<"* OPCION INCORRECTA, SELECCIONE UNA OPCION VALIDA: "<<endl<<endl;
-            break;
-
-            case 3:
+            case 2: /// Analiza los puntos obtenidos.
             if(X==true){
                 PuntosTirada=AnalizarTirada(Dados, T, Ronda);
                 PuntosRonda=PuntosRonda+PuntosTirada;
                 PuntosTotales=PuntosTotales+PuntosTirada;
                 if(PuntosTirada==21) Buncos++;
-                if(PuntosTirada==0) CantFallidas=CantFallidas+2;
+                if(PuntosTirada==0) CantFallidas=CantFallidas+1;
                 X=false;
                 Y=true;
             }
-            else cout<<"* OPCION INCORRECTA, SELECCIONE UNA OPCION VALIDA: "<<endl<<endl;
+            else{
+                Rectangulo(14,4,50,4); Say(19,5,"Debe realizar una tirada para continuar.");
+            }
             break;
 
-            case 4: Instrucciones();
+            case 3: Instrucciones(); /// Reglamento del juego.
             break;
 
             case 0:
-            return 0;
+                Rectangulo(14,4,39,4); Say(19,5,"Volviendo al MENU PRINCIPAL.");
+                gotoxy(10,9);
+                return 0;
             break;
 
-            default: cout<<"* OPCION INCORRECTA, SELECCIONE UNA OPCION VALIDA: "<<endl;
+            default:
+                Rectangulo(14,4,22,4); Say(19,5,"INCORRECTO.");
             break;
         }
+
+        /// Pasaje de ronda y pantalla con estadisticas del juego entre rondas.
+
         if(PuntosRonda>=21){
-            system("pause");
-            cls();
             Ronda++;
             PuntosRonda=0;
-            AnalisisUnJugador(Nombre, Ronda, Buncos, CantFallidas, CantTiradas, PuntosTotales);
+
+            if(Ronda<=6){
+                Rectangulo(25,26,50,4);
+                gotoxy(30,28);
+                system("pause");
+                cls();
+                AnalisisUnJugador(Nombre, Ronda, Buncos, CantFallidas, CantTiradas, PuntosTotales);
+            }
         }
+        Rectangulo(25,26,50,4);
+        gotoxy(30,28);
         system("pause");
     }
     while(Ronda<=6);
+
+    /// Fin de la partida con las estadisticas finales del juego.
+
     cls();
+    Rectangulo(5,4,57,19);
+    Say(13,5,"Cantidad de Rondas totales finalizadas.");
+    Say(20,7,"---- Estadisticas ----");
+    Say(10,10,"Jugador: "); MostrarNombre(Nombre);
+    PuntosTotales=PuntosTotales-CantFallidas*2;
 
-    cout<<" ******* SISTEMA SIMULADO *******"<<endl;
-    cout<<" ** CANTIDAD DE RONDAS TOTALES FINALIZADAS ** "<<endl<<endl<<endl;
-    cout<<" ==> JUGADOR: ";
-    MostrarNombre(Nombre);
-
-    cout<<" CANTIDAD DE TIRADAS FALLIDAS: "<<CantFallidas<<'\t'<<" CANTIDAD DE BUNCOS OBTENIDOS: "<<Buncos<<endl<<endl;
-    cout<<" CANTIDAD DE TIRADAS NECESARIAS PARA COMPLETAR LAS 6 RONDAS >> "<<CantTiradas<<endl<<endl;
-    cout<<" PUNTAJE TOTAL OBTENIDO: "<<PuntosTotales<<'\t'<<"** PARTIDA FINALIZADA **"<<endl;
-    cout<<" AL SER UNA SIMULACION DE PARTIDA NO SE GUARDARA SU PUNTUACION FINAL OBTENIDA EN LA SECCION PUNTUACIONES MAS ALTAS !!"<<endl;
-    cout<<endl<<endl<<endl;
+    Rectangulo(5,4,57,9);
+    Say(9,14,"Buncos: "); cout<<Buncos;
+    Say(9,16,"Tiradas fallidas: "); cout<<CantFallidas;
+    Say(35,16,"Tiradas totales: "); cout<<CantTiradas;
+    Say(9,18,"Puntaje final: "); cout<<PuntosTotales;
+    Say(9,20,"En este modo NO se guardara su puntaje.");
 
 }

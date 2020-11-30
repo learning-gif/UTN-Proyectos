@@ -64,40 +64,41 @@
 1606070569 c:\users\sebas\desktop\tp final\analizar juego.h
 	"Funciones Generales.h"
 
-1606086285 source:c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\main.cpp
+1606725099 source:c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\main.cpp
 	<iostream>
 	<cstdio>
 	<cstdlib>
 	<ctime>
 	"rlutil.h"
+	"Funciones Esteticas.h"
 	"1_ Un Jugador.h"
 	"2_ Dos Jugadores.h"
 	"3_ Puntuaciones.h"
 	"4_ Modo Simulado.h"
 
-1606086285 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\1_ un jugador.h
+1606726392 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\1_ un jugador.h
 	"Funciones Generales.h"
 	"Instrucciones.h"
 	"Analizar Juego.h"
 
-1606071286 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\funciones generales.h
+1606721340 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\funciones generales.h
 
-1606086624 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\instrucciones.h
+1606722626 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\instrucciones.h
 	<stdio.h>
 	<wchar.h>
 	<locale.h>
 	<stdlib.h>
 
-1606086285 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\analizar juego.h
+1606706513 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\analizar juego.h
 	"Funciones Generales.h"
 
-1606086285 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\2_ dos jugadores.h
+1606726323 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\2_ dos jugadores.h
 	"Funciones Generales.h"
 	"Instrucciones.h"
 
-1606075438 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\3_ puntuaciones.h
+1606725282 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\3_ puntuaciones.h
 
-1606086285 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\4_ modo simulado.h
+1606708166 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\4_ modo simulado.h
 	"Funciones Generales.h"
 
 1606074298 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\rlutil.h
@@ -113,4 +114,6 @@
 	<sys/ioctl.h>
 	<sys/types.h>
 	<sys/time.h>
+
+1606726123 c:\users\sebas\documents\github\utn\laboratorio de computación i\tp final\funciones esteticas.h
 

@@ -37,6 +37,7 @@
 		<Unit filename="3_ Puntuaciones.h" />
 		<Unit filename="4_ Modo Simulado.h" />
 		<Unit filename="Analizar Juego.h" />
+		<Unit filename="Funciones Esteticas.h" />
 		<Unit filename="Funciones Generales.h" />
 		<Unit filename="Instrucciones.h" />
 		<Unit filename="main.cpp" />
